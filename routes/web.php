@@ -5,6 +5,7 @@ use App\Http\Controllers\ArticlesController;
 
 Route::get('/', [ArticlesController::class, 'index']);
 Route::get('/show', [ArticlesController::class, 'show']);
+Route::get('/search', [ArticlesController::class, 'search']);
 Route::get('/{tag}', [ArticlesController::class, 'sortByTag']);
 Route::post('/save', [ArticlesController::class, 'save']);
 Route::post('/update', [ArticlesController::class, 'update']);

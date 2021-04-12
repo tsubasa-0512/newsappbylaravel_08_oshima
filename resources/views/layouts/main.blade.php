@@ -23,11 +23,16 @@
         </ul>
         <div class="flex flex-col md:flex-row items-center">
             <div class="relative mt-3 md:mt-8">
-                <input type="text" class="bg-gray-800 rounded-full w-64 px-4 pl-8 py-1
+            <form method="GET" action="/search">
+            @csrf
+                <input type="text" name="keyword" class="bg-gray-800 rounded-full w-64 px-4 pl-8 py-1
                 focus:outline-none focus:shadow-outline" placeholder="キーワードで検索">
                 <div class="absolute top-0">
                     <svg class="ml-2 mt-2" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
                 </div>
+                <input type="submit" value="検索" class="bg-purple-500 text-white-900 rounded font-semibold px-3 py-1 ml-1
+                hover:bg-purple-600 transition ease-in-out duration-150 cursor-pointer">
+            </form>
             </div>
             <div class="md:ml-4 mt-3 md:mt-8">
                 @if (Route::has('login'))

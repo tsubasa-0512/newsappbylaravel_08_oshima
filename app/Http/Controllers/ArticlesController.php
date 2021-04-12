@@ -13,14 +13,14 @@ class ArticlesController extends Controller
 {
     public function index()
     {
-        $count = 15;
+        $count = 20;
 
         try {
             $client = new Client();
-            $apiRequest = $client->request('GET','https://newsapi.org/v2/top-headlines?country=jp&category=business&pageSize='.$count.'&apiKey=ここにAPIキーを貼り付け');
+            $apiRequest = $client->request('GET','https://newsapi.org/v2/top-headlines?country=jp&category=business&pageSize='.$count.'&apiKey=769faa6aab1a4206ae608d05b7b67e48');
             $response = json_decode($apiRequest->getBody()->getContents(), true);
             
-            $apiRequest2 = $client->request('GET','https://newsapi.org/v2/top-headlines?country=jp&category=technology&pageSize='.$count.'&apiKey=ここにAPIキーを貼り付け');
+            $apiRequest2 = $client->request('GET','https://newsapi.org/v2/top-headlines?country=jp&category=technology&pageSize='.$count.'&apiKey=769faa6aab1a4206ae608d05b7b67e48');
             $response2 = json_decode($apiRequest2->getBody()->getContents(), true);
 
             $bz_news = [];
@@ -119,5 +119,49 @@ class ArticlesController extends Controller
         }else {
             return redirect('/');
         }
+    }
+
+    public function search(Request $request) {
+        $keyword = $request->input('keyword');
+
+        $count = 20;
+
+        try {
+            $client = new Client();
+            $apiRequest = $client->request('GET','https://newsapi.org/v2/top-headlines?q='.$keyword.'&sortBy=relevancy&pageSize='.$count.'&apiKey=769faa6aab1a4206ae608d05b7b67e48');
+            $response = json_decode($apiRequest->getBody()->getContents(), true);
+            $bz_news = [];
+
+
+
+            if($response['totalResults'] < $count) { 
+                for ($idx = 0; $idx < $response['totalResults']; $idx++) {
+                    array_push($bz_news, [
+                        'title' => $response['articles'][$idx]['title'],
+                        'url' => $response['articles'][$idx]['url'],
+                        'thumbnail' => $response['articles'][$idx]['urlToImage'],
+                        'published' => $response['articles'][$idx]['publishedAt'],
+                    ]);
+                }
+            }else {
+                for ($idx = 0; $idx < $count; $idx++) {
+                    array_push($bz_news, [
+                        'title' => $response['articles'][$idx]['title'],
+                        'url' => $response['articles'][$idx]['url'],
+                        'thumbnail' => $response['articles'][$idx]['urlToImage'],
+                        'published' => $response['articles'][$idx]['publishedAt'],
+                    ]);
+                }
+            }
+            
+        } catch (RequestException $e) {
+            //For handling exception
+            echo Psr7\str($e->getRequest());
+            if ($e->hasResponse()) {
+                echo Psr7\str($e->getResponse());
+            }
+        }
+
+        return view('search_result', compact('bz_news','keyword'));
     }
 }
