@@ -12,7 +12,7 @@
                      ease-in-out duration-150">
                 </a>
                 <div class="mt-2">
-                    <a href="#" class="text-lg mt-2 hover:text-gray-300">{{$data['title']}}</a>
+                    <a href="{{$data['url']}}" class="text-lg mt-2 hover:text-gray-300">{{$data['title']}}</a>
                     <div class="flex items-center text-gray-400 text-sm mt-1">
                         <span>{{$data['published']}}</span>
                     </div>
@@ -46,10 +46,11 @@
                      ease-in-out duration-150">
                 </a>
                 <div class="mt-2">
-                    <a href="#" class="text-lg mt-2 hover:text-gray-300">{{$data['title']}}</a>
+                    <a href="{{$data['url']}}" class="text-lg mt-2 hover:text-gray-300">{{$data['title']}}</a>
                     <div class="flex items-center text-gray-400 text-sm mt-1">
                         <span>{{$data['published']}}</span>
                     </div>
+                    @auth
                     <div class="flex items-center text-gray-400 text-sm mt-2">
                         <form method="POST" action="/save">
                         @csrf
@@ -57,11 +58,13 @@
                             <input type="hidden" name="thumbnail" value="{{$data['thumbnail']}}"/>
                             <input type="hidden" name="title" value="{{$data['title']}}"/>
                             <input type="hidden" name="published" value="{{$data['published']}}"/>
-                            <input type="text" name="tag" placeholder="タグ" class="pl-1"/>
-                            <input type="submit" value="Pick" class="bg-purple-500 text-gray-900 rounded font-semibold px-3
+                            <input type="hidden" name="user_id" value="{{ Auth::id() }}"/>
+                            <input type="text" name="tag" placeholder="タグ" class="pl-1 h-6"/>
+                            <input type="submit" value="Pick" class="bg-purple-500 text-gray-900 rounded font-semibold px-3 py-1
                             hover:bg-purple-600 transition ease-in-out duration-150 cursor-pointer">
                         </form>
                     </div>
+                    @endauth
                 </div>
             </div>
         @endforeach

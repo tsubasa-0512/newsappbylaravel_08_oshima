@@ -14,7 +14,7 @@
                             ease-in-out duration-150">
                         </a>
                         <div class="mt-2">
-                            <a href="#" class="text-lg mt-2 hover:text-gray-300">{{$data['title']}}</a>
+                            <a href="{{$data['url']}}" class="text-lg mt-2 hover:text-gray-300">{{$data['title']}}</a>
                             <div class="flex items-center text-gray-400 text-sm mt-1">
                                 <span>{{$data['published']}}</span>
                             </div>
