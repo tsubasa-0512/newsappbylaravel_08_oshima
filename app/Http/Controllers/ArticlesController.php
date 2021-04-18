@@ -17,10 +17,10 @@ class ArticlesController extends Controller
 
         try {
             $client = new Client();
-            $apiRequest = $client->request('GET','https://newsapi.org/v2/top-headlines?country=jp&category=business&pageSize='.$count.'&apiKey=769faa6aab1a4206ae608d05b7b67e48');
+            $apiRequest = $client->request('GET','https://newsapi.org/v2/top-headlines?country=jp&category=business&pageSize='.$count.'&apiKey='); //APIキー追加
             $response = json_decode($apiRequest->getBody()->getContents(), true);
             
-            $apiRequest2 = $client->request('GET','https://newsapi.org/v2/top-headlines?country=jp&category=technology&pageSize='.$count.'&apiKey=769faa6aab1a4206ae608d05b7b67e48');
+            $apiRequest2 = $client->request('GET','https://newsapi.org/v2/top-headlines?country=jp&category=technology&pageSize='.$count.'&apiKey=');　//APIキー追加
             $response2 = json_decode($apiRequest2->getBody()->getContents(), true);
 
             $bz_news = [];
@@ -128,7 +128,7 @@ class ArticlesController extends Controller
 
         try {
             $client = new Client();
-            $apiRequest = $client->request('GET','https://newsapi.org/v2/top-headlines?q='.$keyword.'&sortBy=relevancy&pageSize='.$count.'&apiKey=769faa6aab1a4206ae608d05b7b67e48');
+            $apiRequest = $client->request('GET','https://newsapi.org/v2/top-headlines?q='.$keyword.'&sortBy=relevancy&pageSize='.$count.'&apiKey=');　//APIキー追加
             $response = json_decode($apiRequest->getBody()->getContents(), true);
             $bz_news = [];
 
